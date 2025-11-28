@@ -3,27 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>美食雷達 - 吉卜力特典版</title>
-<!-- 引入不蒜子計數器 (https 版本) -->
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<title>美食雷達</title>
 <style>
+    /* --- 吉卜力風格配色變數 --- */
     :root {
-        /* 吉卜力配色靈感：森林、大地、藍天、溫暖燭光 */
-        --primary-meal: #d87153; /* 類似波妞的磚紅色 */
-        --primary-drink: #5e8b7e; /* 龍貓森林的深綠色 */
-        --accent-color: #f1c40f;  /* 飛行石的金黃色 */
-        --bg-color: #fbf7ed;      /* 復古米黃畫紙色 */
-        --card-bg: #ffffff;
-        --text-color: #4a4a4a;    /* 煤炭球深灰色 */
-        --border-radius: 20px;
+        /* 森林綠 (龍貓) */
+        --primary-color: #5D8A68;
+        /* 溫暖橘 (霍爾的移動城堡) */
+        --secondary-color: #E69A66;
+        /* 雲朵白 (天空之城) */
+        --bg-color: #FDFBF6;
+        /* 復古米黃 (圖紙感) */
+        --card-bg: #FFFDF5;
+        /* 深灰 (煤炭精靈) */
+        --text-color: #4A4A4A;
+        /* 魔法紫 (隨機按鈕) */
+        --random-color: #887bb0;
+        
+        --border-color: #DCD6C6;
     }
 
     body {
-        font-family: "Noto Serif TC", "Songti TC", serif; /* 改用襯線體增加故事感 */
+        font-family: "Gen Jyuu Gothic", "Yu Pearl", "Hiragino Sans", "Microsoft JhengHei", "Segoe UI", sans-serif;
         background-color: var(--bg-color);
-        background-image: radial-gradient(#e8e0d5 1px, transparent 1px); /* 點狀紋理 */
-        background-size: 20px 20px;
         color: var(--text-color);
         margin: 0;
         padding: 20px;
@@ -32,52 +34,53 @@
         align-items: center;
         min-height: 100vh;
         box-sizing: border-box;
+        /* 加入淡淡的紙張紋理感 */
+        background-image: radial-gradient(#E0DCD3 1px, transparent 1px);
+        background-size: 20px 20px;
     }
 
     h1 {
-        color: var(--primary-meal);
-        font-size: 2.0rem;
+        color: var(--primary-color);
+        font-size: 2rem;
         margin-bottom: 5px;
         text-align: center;
-        text-shadow: 2px 2px 0px rgba(216, 113, 83, 0.1);
+        text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        font-weight: 800;
     }
 
     .subtitle {
-        color: #8d8d8d;
-        font-size: 1.0rem;
+        color: #8C8C8C;
+        font-size: 1rem;
         margin-bottom: 25px;
         text-align: center;
-        font-style: italic;
+        font-weight: 500;
     }
 
-    /* 區塊標題 - 改為手繪風格底線 */
+    /* 區塊標題 */
     .section-title {
         font-size: 1.2rem;
         font-weight: bold;
         align-self: flex-start;
         margin: 25px 0 15px 0;
-        padding-left: 10px;
-        border-left: 6px solid var(--primary-meal);
-        border-radius: 5px;
+        padding-left: 15px;
+        /* 吉卜力風格標題裝飾 */
+        border-left: 6px solid var(--secondary-color);
+        color: var(--text-color);
         width: 100%;
         max-width: 600px;
-        color: #5d4037;
-    }
-
-    body.drink-mode .section-title {
-        border-left-color: var(--primary-drink);
     }
 
     /* --- 切換開關 (Tabs) --- */
     .mode-switch {
         display: flex;
-        background: #eee6d8;
-        border-radius: 30px; /* 更圓 */
-        padding: 6px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 25px;
+        padding: 8px;
         width: 100%;
         max-width: 600px;
-        box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 12px rgba(93, 138, 104, 0.15);
         margin-bottom: 10px;
+        border: 1px solid var(--border-color);
     }
 
     .mode-btn {
@@ -86,24 +89,23 @@
         background: transparent;
         padding: 12px;
         font-size: 1.1rem;
-        font-family: "Noto Serif TC", serif;
         font-weight: bold;
-        color: #a1968a;
+        color: #999;
         cursor: pointer;
-        border-radius: 25px;
-        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border-radius: 20px;
+        transition: all 0.3s ease;
     }
 
     .mode-btn.active-meal {
-        background-color: var(--card-bg);
-        color: var(--primary-meal);
-        box-shadow: 0 4px 10px rgba(216, 113, 83, 0.2);
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 10px rgba(93, 138, 104, 0.3);
     }
 
     .mode-btn.active-drink {
-        background-color: var(--card-bg);
-        color: var(--primary-drink);
-        box-shadow: 0 4px 10px rgba(94, 139, 126, 0.2);
+        background-color: var(--secondary-color);
+        color: white;
+        box-shadow: 0 4px 10px rgba(230, 154, 102, 0.3);
     }
 
     /* --- 選項網格 --- */
@@ -121,48 +123,45 @@
 
     .option-btn {
         background: var(--card-bg);
-        border: 2px solid #eae2d3;
+        border: 2px solid transparent; /* 預設無邊框，改用陰影呈現立體感 */
         border-radius: 16px;
-        padding: 15px 5px;
+        padding: 12px 5px;
         font-size: 1rem;
-        font-family: "Noto Serif TC", serif;
-        color: #666;
         cursor: pointer;
-        transition: all 0.3s;
+        transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         min-height: 80px;
-        box-shadow: 0 4px 0 #eae2d3; /* 仿立體按鈕 */
-        transform: translateY(0);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.08);
+        color: var(--text-color);
     }
 
-    .option-btn:active {
-        transform: translateY(4px);
-        box-shadow: 0 0 0 #eae2d3;
+    .option-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
     }
 
     .icon {
         font-size: 1.8rem;
         margin-bottom: 8px;
-        filter: sepia(0.3); /* 讓emoji帶點復古感 */
     }
 
     /* 選中狀態 */
     .option-btn.selected {
-        border-color: var(--primary-meal);
-        background-color: #fff9f5;
-        color: var(--primary-meal);
+        border: 2px solid var(--primary-color);
+        background-color: #F0F7F2; /* 極淡的綠色背景 */
+        color: var(--primary-color);
         font-weight: bold;
-        box-shadow: 0 4px 0 var(--primary-meal);
+        box-shadow: inset 0 0 8px rgba(93, 138, 104, 0.1);
+        transform: translateY(0);
     }
 
     body.drink-mode .option-btn.selected {
-        border-color: var(--primary-drink);
-        background-color: #f2f9f7;
-        color: var(--primary-drink);
-        box-shadow: 0 4px 0 var(--primary-drink);
+        border-color: var(--secondary-color);
+        background-color: #FFF6F0; /* 極淡的橘色背景 */
+        color: #D17A45;
     }
 
     /* --- 底部按鈕區 --- */
@@ -170,7 +169,7 @@
         display: flex;
         gap: 15px;
         width: 100%;
-        max-width: 400px;
+        max-width: 450px;
         margin-top: 40px;
     }
 
@@ -178,116 +177,116 @@
         border: none;
         border-radius: 50px;
         padding: 16px 0;
-        font-size: 1.2rem;
-        font-family: "Noto Serif TC", serif;
+        font-size: 1.1rem;
         font-weight: bold;
         color: white;
         cursor: pointer;
         box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        transition: all 0.3s;
+        transition: transform 0.2s, box-shadow 0.2s;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
     }
 
-    .action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    .action-btn:active {
+        transform: scale(0.95);
     }
 
     /* 搜尋按鈕 */
     #search-btn {
         flex: 2;
-        background-color: var(--primary-meal);
+        background: linear-gradient(135deg, var(--primary-color), #4A7555);
     }
+
     body.drink-mode #search-btn {
-        background-color: var(--primary-drink);
+        background: linear-gradient(135deg, var(--secondary-color), #D17A45);
     }
 
     /* 隨機按鈕 */
     #random-btn {
         flex: 1.2;
-        background-color: var(--accent-color);
-        color: #5d4037; /* 黃色背景配深咖字 */
+        background: linear-gradient(135deg, var(--random-color), #6c5ce7);
     }
 
+    /* --- 計數器與頁尾 --- */
     .counter-box {
-        margin-top: 30px;
+        margin-top: 25px;
         font-size: 0.9rem;
-        color: #999;
+        color: #7A7A7A;
         text-align: center;
-        background-color: rgba(255, 255, 255, 0.5);
-        padding: 10px 20px;
-        border-radius: 30px;
-        border: 1px dashed #ccc;
-        min-height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.6);
+        padding: 8px 20px;
+        border-radius: 50px;
+        border: 1px solid rgba(255,255,255,0.8);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
     .footer {
         margin-top: auto;
         padding-top: 40px;
         padding-bottom: 20px;
-        font-size: 0.9rem;
-        color: #a1968a;
-        font-weight: bold;
+        font-size: 0.95rem;
+        color: #9AA0A6;
+        font-weight: 600;
         letter-spacing: 1px;
         text-align: center;
     }
 
     .footer a {
-        color: #a1968a;
+        color: #7f8c8d;
         text-decoration: none;
-        border-bottom: 1px dashed #a1968a;
+        border-bottom: 1px dashed #bdc3c7;
+        transition: all 0.2s;
+    }
+
+    .footer a:hover {
+        color: var(--primary-color);
+        border-bottom: 1px solid var(--primary-color);
     }
 </style>
 </head>
 <body>
 
-    <h1>🌿 美食雷達</h1>
-    <div class="subtitle">尋找你的美味奇遇</div>
+    <h1>🌱 美食雷達</h1>
+    <div class="subtitle">Google Map 智慧快搜</div>
 
     <!-- 步驟一：模式切換 -->
     <div class="mode-switch">
-        <button class="mode-btn active-meal" id="btn-meal" onclick="switchMode('meal')">🍱 尋找正餐</button>
-        <button class="mode-btn" id="btn-drink" onclick="switchMode('drink')">🍵 愜意午後</button>
+        <button class="mode-btn active-meal" id="btn-meal" onclick="switchMode('meal')">🍱 找正餐</button>
+        <button class="mode-btn" id="btn-drink" onclick="switchMode('drink')">🍡 下午茶</button>
     </div>
 
     <!-- 步驟二：用餐情境 -->
-    <div class="section-title">1. 旅途夥伴</div>
+    <div class="section-title">1. 用餐情境</div>
     <div class="grid-container scenarios" id="scenario-container">
-        <button class="option-btn selected" data-keyword="" onclick="selectScenario(this)"><span class="icon">✨</span>隨心所欲</button>
-        <button class="option-btn" data-keyword="適合單人" onclick="selectScenario(this)"><span class="icon">🎒</span>一人獨行</button>
-        <button class="option-btn" data-keyword="氣氛" onclick="selectScenario(this)"><span class="icon">🕯️</span>兩人時光</button>
-        <button class="option-btn" data-keyword="聚餐" onclick="selectScenario(this)"><span class="icon">🎪</span>熱鬧聚會</button>
+        <button class="option-btn selected" data-keyword="" onclick="selectScenario(this)"><span class="icon">🍃</span>隨便吃吃</button>
+        <button class="option-btn" data-keyword="適合單人" onclick="selectScenario(this)"><span class="icon">👤</span>1人獨享</button>
+        <button class="option-btn" data-keyword="氣氛" onclick="selectScenario(this)"><span class="icon">🕯️</span>2人約會</button>
+        <button class="option-btn" data-keyword="聚餐" onclick="selectScenario(this)"><span class="icon">🍻</span>多人聚餐</button>
     </div>
 
     <!-- 步驟三：動態分類 -->
-    <div class="section-title" id="type-title">2. 肚子餓了嗎？</div>
+    <div class="section-title" id="type-title">2. 想吃什麼？</div>
     <div class="grid-container" id="cuisine-container"></div>
 
     <!-- 雙按鈕區 -->
     <div class="action-area">
         <button id="search-btn" class="action-btn" onclick="goSearch()">
-            🔍 出發探索
+            <span>🔍</span> 搜尋
         </button>
         <button id="random-btn" class="action-btn" onclick="goRandom()">
-            🎲 命運指引
+            <span>🎲</span> 幫我選
         </button>
     </div>
 
-    <!-- 網頁訪客統計計數器 -->
+    <!-- 獨立計數器 (CountAPI) -->
     <div class="counter-box">
-        <span id="busuanzi_container_site_pv" style="display:none;">
-            已有 <span id="busuanzi_value_site_pv">0</span> 位旅人造訪
-        </span>
+        訪客累積：<span id="visit-count">計算中...</span> 人次
     </div>
 
     <div class="footer">
-        Designed by <a href="https://www.facebook.com/justinwei168" target="_blank">Justin</a> & Gemini
+        <a href="https://www.facebook.com/justinwei168" target="_blank">Justin</a> & Gemini 3 Pro
     </div>
 
     <script>
@@ -295,7 +294,7 @@
         const mealCategories = [
             { name: "魯肉飯", icon: "🍚" },
             { name: "便當簡餐", icon: "🍱" },
-            { name: "小吃/麵店", icon: "🍢" },
+            { name: "小吃/麵店", icon: "🍜" },
             { name: "水餃/鍋貼", icon: "🥟" },
             { name: "火鍋", icon: "🍲" },
             { name: "鐵板燒", icon: "👨‍🍳" },
@@ -306,20 +305,20 @@
             { name: "韓式料理", icon: "🥘" },
             { name: "泰式料理", icon: "🌶️" },
             { name: "咖哩", icon: "🍛" },
-            { name: "早午餐", icon: "🥪" },
-            { name: "素食", icon: "🥬" }
+            { name: "早午餐", icon: "🍳" },
+            { name: "素食", icon: "🥗" }
         ];
 
         const drinkCategories = [
+            { name: "豆花/粉圓", icon: "🥣" },
             { name: "手搖飲", icon: "🧋" },
             { name: "咖啡廳", icon: "☕" },
-            { name: "豆花/粉圓", icon: "🥣" },
             { name: "炸雞/鹽酥雞", icon: "🍗" },
             { name: "車輪餅/雞蛋糕", icon: "🥞" },
             { name: "蔥油餅/抓餅", icon: "🌯" },
-            { name: "甜點/冰品", icon: "🍰" },
+            { name: "甜點/冰品", icon: "🍧" },
             { name: "麵包/甜甜圈", icon: "🍩" },
-            { name: "章魚燒/小吃", icon: "🍡" }
+            { name: "章魚燒/小吃", icon: "🍢" }
         ];
 
         // --- 狀態變數 ---
@@ -327,4 +326,114 @@
         let selectedScenarioKeyword = "";
         let selectedCuisineKeyword = "";
 
-        document.
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCuisines(mealCategories);
+            updateVisitCount();
+        });
+
+        function switchMode(mode) {
+            currentMode = mode;
+            const btnMeal = document.getElementById('btn-meal');
+            const btnDrink = document.getElementById('btn-drink');
+            const body = document.body;
+            
+            if (mode === 'meal') {
+                btnMeal.className = 'mode-btn active-meal';
+                btnDrink.className = 'mode-btn';
+                body.classList.remove('drink-mode');
+                renderCuisines(mealCategories);
+            } else {
+                btnMeal.className = 'mode-btn';
+                btnDrink.className = 'mode-btn active-drink';
+                body.classList.add('drink-mode');
+                renderCuisines(drinkCategories);
+            }
+            selectedCuisineKeyword = "";
+        }
+
+        function renderCuisines(list) {
+            const container = document.getElementById('cuisine-container');
+            container.innerHTML = "";
+            list.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span class="icon">${item.icon}</span>${item.name}`;
+                btn.dataset.name = item.name; 
+                btn.addEventListener('click', function() {
+                    const allBtns = container.querySelectorAll('.option-btn');
+                    allBtns.forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedCuisineKeyword = item.name;
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        function selectScenario(btn) {
+            const container = document.getElementById('scenario-container');
+            const allBtns = container.querySelectorAll('.option-btn');
+            allBtns.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedScenarioKeyword = btn.getAttribute('data-keyword');
+        }
+
+        function goSearch() {
+            if (!selectedCuisineKeyword) {
+                alert(currentMode === 'meal' ? "請先選擇正餐類型，或按「🎲 幫我選」！" : "請先選擇點心類型，或按「🎲 幫我選」！");
+                return;
+            }
+            performSearch(selectedCuisineKeyword);
+        }
+
+        function goRandom() {
+            const container = document.getElementById('cuisine-container');
+            const options = container.querySelectorAll('.option-btn');
+            
+            if (options.length === 0) return;
+
+            const randomIndex = Math.floor(Math.random() * options.length);
+            const selectedBtn = options[randomIndex];
+            const keyword = selectedBtn.dataset.name;
+
+            const allBtns = container.querySelectorAll('.option-btn');
+            allBtns.forEach(b => b.classList.remove('selected'));
+            selectedBtn.classList.add('selected');
+            selectedCuisineKeyword = keyword;
+
+            setTimeout(() => {
+                if(confirm(`🍃 龍貓公車即將前往：${keyword}！\n要現在出發嗎？`)) {
+                    performSearch(keyword);
+                }
+            }, 150);
+        }
+
+        function performSearch(keyword) {
+            let query = keyword;
+            if (selectedScenarioKeyword) {
+                query += " " + selectedScenarioKeyword;
+            }
+            const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
+            window.open(mapUrl, '_blank');
+        }
+
+        // --- 新增：CountAPI 計數器功能 ---
+        // 使用 namespace (您的網域) 和 key (index.html) 來確保唯一性
+        function updateVisitCount() {
+            const namespace = 'mimime168.github.io';
+            const key = 'foodmap_index_html'; // 特定頁面標識
+            
+            // 使用 countapi.xyz 的 hit 端點，每次載入頁面都 +1
+            fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('visit-count').innerText = data.value;
+            })
+            .catch(err => {
+                console.error('計數器錯誤:', err);
+                // 如果 API 失敗，嘗試讀取 get 端點或是顯示預設值
+                 document.getElementById('visit-count').innerText = "(讀取中)";
+            });
+        }
+    </script>
+</body>
+</html>
