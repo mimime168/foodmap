@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>美食雷達 - 吉卜力特典版</title>
-<!-- 引入不蒜子計數器腳本 -->
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- 引入不蒜子計數器 (修正為 https) -->
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
 <style>
     :root {
@@ -221,12 +221,11 @@
         padding: 8px 20px;
         border-radius: 30px;
         border: 1px dashed #ccc;
-    }
-
-    /* 為了防止數字還沒跑出來時閃爍，給它一個最小寬度 */
-    #busuanzi_value_site_pv {
-        font-weight: bold;
-        color: var(--primary-meal);
+        /* 預設最小高度避免跳動 */
+        min-height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .footer {
@@ -281,10 +280,11 @@
         </button>
     </div>
 
-    <!-- 人次計數器 (修正結構) -->
+    <!-- 人次計數器 (修正版) -->
     <div class="counter-box">
-        <span id="busuanzi_container_site_pv" style="display: inline;">
-            已有 <span id="busuanzi_value_site_pv">計算中...</span> 位旅人填飽肚子
+        <!-- 加入 id="busuanzi_container_site_pv" 確保計數器正確顯示 -->
+        <span id="busuanzi_container_site_pv" style="display:none;">
+            已有 <span id="busuanzi_value_site_pv">...</span> 位旅人填飽肚子
         </span>
     </div>
 
@@ -404,7 +404,7 @@
 
             // 延遲一點點再跳轉
             setTimeout(() => {
-                if(confirm(`精靈悄悄告訴你：\n今天適合吃「${keyword}」！\n\n要出發了嗎？`)) {
+                if(confirm(`精靈悄悄告訴你：\\n今天適合吃「${keyword}」！\\n\\n要出發了嗎？`)) {
                     performSearch(keyword);
                 }
             }, 100);
