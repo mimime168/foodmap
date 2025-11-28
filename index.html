@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>美食雷達 - 吉卜力特典版</title>
-<!-- 引入不蒜子計數器 (使用 https 協定) -->
+<!-- 引入不蒜子計數器 (https 版本) -->
 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -213,16 +213,15 @@
     }
 
     .counter-box {
-        margin-top: 25px;
+        margin-top: 30px;
         font-size: 0.9rem;
         color: #999;
         text-align: center;
         background-color: rgba(255, 255, 255, 0.5);
-        padding: 8px 20px;
+        padding: 10px 20px;
         border-radius: 30px;
         border: 1px dashed #ccc;
-        /* 避免文字跳動 */
-        min-height: 35px; 
+        min-height: 35px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -280,11 +279,10 @@
         </button>
     </div>
 
-    <!-- 人次計數器 (已修正) -->
+    <!-- 網頁訪客統計計數器 -->
     <div class="counter-box">
-        <!-- 加入 container id 確保正確顯示，預設隱藏避免跳動 -->
         <span id="busuanzi_container_site_pv" style="display:none;">
-            已有 <span id="busuanzi_value_site_pv">...</span> 位旅人填飽肚子
+            已有 <span id="busuanzi_value_site_pv">0</span> 位旅人造訪
         </span>
     </div>
 
@@ -329,95 +327,4 @@
         let selectedScenarioKeyword = "";
         let selectedCuisineKeyword = "";
 
-        document.addEventListener('DOMContentLoaded', function() {
-            renderCuisines(mealCategories);
-        });
-
-        function switchMode(mode) {
-            currentMode = mode;
-            const btnMeal = document.getElementById('btn-meal');
-            const btnDrink = document.getElementById('btn-drink');
-            const body = document.body;
-            
-            if (mode === 'meal') {
-                btnMeal.className = 'mode-btn active-meal';
-                btnDrink.className = 'mode-btn';
-                body.classList.remove('drink-mode');
-                renderCuisines(mealCategories);
-            } else {
-                btnMeal.className = 'mode-btn';
-                btnDrink.className = 'mode-btn active-drink';
-                body.classList.add('drink-mode');
-                renderCuisines(drinkCategories);
-            }
-            selectedCuisineKeyword = "";
-        }
-
-        function renderCuisines(list) {
-            const container = document.getElementById('cuisine-container');
-            container.innerHTML = "";
-            list.forEach(item => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerHTML = `<span class="icon">${item.icon}</span>${item.name}`;
-                btn.dataset.name = item.name; 
-                btn.addEventListener('click', function() {
-                    const allBtns = container.querySelectorAll('.option-btn');
-                    allBtns.forEach(b => b.classList.remove('selected'));
-                    this.classList.add('selected');
-                    selectedCuisineKeyword = item.name;
-                });
-                container.appendChild(btn);
-            });
-        }
-
-        function selectScenario(btn) {
-            const container = document.getElementById('scenario-container');
-            const allBtns = container.querySelectorAll('.option-btn');
-            allBtns.forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            selectedScenarioKeyword = btn.getAttribute('data-keyword');
-        }
-
-        function goSearch() {
-            if (!selectedCuisineKeyword) {
-                alert(currentMode === 'meal' ? "請先選擇一種料理，或點選「🎲 命運指引」！" : "請先選擇點心，或點選「🎲 命運指引」！");
-                return;
-            }
-            performSearch(selectedCuisineKeyword);
-        }
-
-        function goRandom() {
-            const container = document.getElementById('cuisine-container');
-            const options = container.querySelectorAll('.option-btn');
-            
-            // 簡單的隨機動畫效果
-            const randomIndex = Math.floor(Math.random() * options.length);
-            const selectedBtn = options[randomIndex];
-            const keyword = selectedBtn.dataset.name;
-
-            // 視覺上選中它
-            const allBtns = container.querySelectorAll('.option-btn');
-            allBtns.forEach(b => b.classList.remove('selected'));
-            selectedBtn.classList.add('selected');
-            selectedCuisineKeyword = keyword;
-
-            // 延遲一點點再跳轉
-            setTimeout(() => {
-                if(confirm(`精靈悄悄告訴你：\\n今天適合吃「${keyword}」！\\n\\n要出發了嗎？`)) {
-                    performSearch(keyword);
-                }
-            }, 100);
-        }
-
-        function performSearch(keyword) {
-            let query = keyword;
-            if (selectedScenarioKeyword) {
-                query += " " + selectedScenarioKeyword;
-            }
-            const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
-            window.open(mapUrl, '_blank');
-        }
-    </script>
-</body>
-</html>
+        document.
